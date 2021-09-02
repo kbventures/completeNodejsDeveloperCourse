@@ -6,10 +6,9 @@ const getNotes = () => {
 
 const addNote = (title, body) => {
   const notes = loadNotes();
+  const duplicateNote = notes.find((note) => note.title === title);
 
-  const duplicateNotes = notes.filter((note) => note.title === title);
-
-  if (duplicateNotes.length === 0) {
+  if (!duplicateNote) {
     notes.push({
       title: title,
       body: body,
@@ -25,6 +24,7 @@ const addNote = (title, body) => {
 const removeNote = (title) => {
   const notes = loadNotes();
   const notesToKeep = notes.filter((note) => note.title !== title);
+
   if (notes.length > notesToKeep.length) {
     console.log(chalk.bgGreen.inverse('Note removed!'));
     saveNotes(notesToKeep);
@@ -48,10 +48,34 @@ const loadNotes = () => {
   }
 };
 
+const listNotes = () => {
+  const notes = loadNotes();
+
+  if (notes.length != 0) {
+    return notes.forEach((note) =>
+      console.log(chalk.inverse('Your Notes ' + note.title))
+    );
+  }
+  console.log('Array is empty');
+};
+
+const readNote = (title) => {
+  const notes = loadNotes();
+  const note = notes.find((note) => note.title === title);
+  if (note) {
+    console.log(chalk.inverse(note.title));
+    console.log(note.body);
+  } else {
+    console.log(chalk.red('Error'));
+  }
+};
+
 // module.exports = getNotes
 
 module.exports = {
   getNotes: getNotes,
   addNote: addNote,
   removeNote: removeNote,
+  listNotes: listNotes,
+  readNote: readNote,
 };
