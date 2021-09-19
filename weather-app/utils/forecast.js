@@ -7,19 +7,19 @@ forecast = (latitude, longitude, callback) => {
     ',' +
     longitude;
 
-  request({ url: url, json: true }, (error, response) => {
+  request({ url, json: true }, (error, { body }) => {
     if (error) {
       callback('Connection problem!', undefined);
-    } else if (response.body.error === 0) {
+    } else if (body.error) {
       callback('Coordinate error!', undefined);
     } else {
       callback(
         undefined,
-        response.body.current.weather_descriptions[0] +
+        body.current.weather_descriptions[0] +
           '. It is currently ' +
-          response.body.current.temperature +
+          body.current.temperature +
           ' degrees out. There is ' +
-          response.body.current.precip +
+          body.current.precip +
           ' % chance of rain.'
       );
     }
