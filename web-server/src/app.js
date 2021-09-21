@@ -56,6 +56,28 @@ app.get('/weather', (req, res) => {
   ]);
 });
 
+app.get('/help/*', (req, res) => {
+  res.render('404', {
+    error: 'Error 404',
+    message: 'Help Page Not Found',
+  });
+});
+
+app.get('/about/*', (req, res) => {
+  res.render('404', {
+    error: 'Error 404',
+    message: 'About Page Not Found',
+  });
+});
+
+// * Match anything that hasn't been matched so far
+app.get('*', (req, res) => {
+  res.render('404', {
+    error: 'Error 404',
+    message: 'Page Not Found',
+  });
+});
+
 app.listen(3000, () => {
   console.log('Server is up on port 3000');
 });
