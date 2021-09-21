@@ -3,15 +3,20 @@ const express = require('express');
 
 // console.log(__dirname);
 // console.log(__filename);
-console.log(path.join(__dirname, '../public'));
+// console.log(path.join(__dirname, '../public'));
 
 const app = express();
 
+// Define Paths For Express Config
 const publicDirectoryPath = path.join(__dirname, '../public');
+const viewsPath = path.join(__dirname, '../templates');
 
+// Setup Handlebars Engine And Views Location
 app.set('view engine', 'hbs');
-// app.use(express.static(publicDirectoryPath));
-// app.set('views', '../views');
+app.set('views', viewsPath);
+
+// Setup Static Directory to Serve
+app.use(express.static(publicDirectoryPath));
 
 app.get('', (req, res) => {
   res.render('index', {
