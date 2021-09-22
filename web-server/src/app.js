@@ -37,8 +37,8 @@ app.get('/about', (req, res) => {
 
 app.get('/help', (req, res) => {
   res.render('help', {
-    helpText: 'This is some helpful text.',
     title: 'Help',
+    helpText: 'This is some helpful text.',
     name: 'Andrew Mead',
   });
 });
@@ -58,23 +58,29 @@ app.get('/weather', (req, res) => {
 
 app.get('/help/*', (req, res) => {
   res.render('404', {
-    error: 'Error 404',
+    title: 'Error',
+    error: '404',
     message: 'Help Page Not Found',
+    name: 'Andrew Mead',
   });
 });
 
 app.get('/about/*', (req, res) => {
   res.render('404', {
+    title: 'Error',
     error: 'Error 404',
     message: 'About Page Not Found',
+    name: 'Andrew Mead',
   });
 });
 
 // * Match anything that hasn't been matched so far
 app.get('*', (req, res) => {
   res.render('404', {
+    title: 'ERROR',
     error: 'Error 404',
     message: 'Page Not Found',
+    name: 'Andrew mead',
   });
 });
 
